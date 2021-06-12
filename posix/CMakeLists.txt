@@ -3,14 +3,15 @@ cmake_minimum_required(VERSION 3.15)
 project (dotnet)
 ENABLE_LANGUAGE(ASM)
 
-set(CMAKE_BUILD_TYPE Debug)
-#set(CMAKE_EXE_LINKER_FLAGS "-static")
+#set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_EXTENSIONS OFF CACHE INTERNAL "C compiler extensions OFF")
 set(CMAKE_CXX_EXTENSIONS OFF CACHE INTERNAL "C++ compiler extensions OFF")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -g -rdynamic -Wno-attributes -Wno-narrowing -fpermissive -pthread -fPIC")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -g -rdynamic -Wno-attributes -Wno-narrowing -fpermissive -pthread -fPIC")
+# for minimun size
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -Wno-attributes -Wno-narrowing -fpermissive -pthread")
 
 #### includes
@@ -52,7 +53,8 @@ add_definitions(#-DDEBUG=TRUE
                 -DPLATFORMNAMESTRING="POSIX"
                 -DNANOCLR_LIGHT_MATH=TRUE
                 -DHAL_REDUCESIZE=TRUE
-                -DRUNTIME_MEMORY_PROFILE__extrasmall=TRUE)
+                -DRUNTIME_MEMORY_PROFILE__extrasmall=TRUE
+                -DBOARD_PI_ZERO)
 
 file(GLOB STDAFX
         utils/stdafx.cpp)
@@ -83,7 +85,7 @@ file(GLOB NANO_PAL
         target/PAL/Target_BlockStorage.cpp
         target/PAL/time_stubs.cpp
         target/PAL/Watchdog_stubs.cpp
-        target/PAL/CPU_Gpio.cpp)
+        target/PAL/CPU_Gpio_Linux.cpp)
 
 file(GLOB NANO_CLR
         target/Various.cpp
@@ -262,3 +264,5 @@ add_executable(dotnet-nf
                 ${ASSEMBLIES}
                 utils/utils.cpp
                 main.cpp)
+
+target_link_libraries(dotnet-nf -lgpiod)
