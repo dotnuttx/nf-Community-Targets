@@ -12,7 +12,6 @@ set(CMAKE_CXX_EXTENSIONS OFF CACHE INTERNAL "C++ compiler extensions OFF")
 # for minimun size
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -Wno-attributes -Wno-narrowing -fpermissive -pthread")
 
 #### includes
 include_directories("../../src/CLR/Include")

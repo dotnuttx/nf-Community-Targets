@@ -1,0 +1,15 @@
+# For build a static linked binary for pi Zero:
+# docker run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-arm32v6
+
+ARG ARCH=arm32v6
+
+FROM dotnuttx/binutils:linux-${ARCH}
+
+# install specif dependencies
+RUN apt-get -y update && apt-get install -y \
+        libgpiod-dev \
+        && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /nf-interpreter/targets-community/posix
+
+CMD [ "./build.sh" ]
