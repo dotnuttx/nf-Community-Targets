@@ -55,3 +55,6 @@ CMake/Modules/FindINTEROP*.cmake
 **/packages/*
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
+
+*.o
+.vscode-ctags
