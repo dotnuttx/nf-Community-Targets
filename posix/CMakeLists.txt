@@ -8,10 +8,11 @@ set(CMAKE_EXE_LINKER_FLAGS "-static")
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_EXTENSIONS OFF CACHE INTERNAL "C compiler extensions OFF")
 set(CMAKE_CXX_EXTENSIONS OFF CACHE INTERNAL "C++ compiler extensions OFF")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -g -rdynamic -Wno-attributes -Wno-narrowing -fpermissive -pthread -fPIC")
+# for debug
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++14 -O0 -g -rdynamic -Wno-attributes -Wno-narrowing -fpermissive -pthread -fPIC")
 # for minimun size
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
 
 #### includes
 include_directories("../../src/CLR/Include")
@@ -35,9 +36,13 @@ include_directories("../../src/System.Device.Gpio")
 include_directories("./include")
 
 # defines
-add_definitions(#-DDEBUG=TRUE
-                -DBUILD_RTM
-                -DNANOCLR_REFLECTION=TRUE
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        add_definitions(-DDEBUG=TRUE)
+else ()
+        add_definitions(-DBUILD_RTM)
+endif ()
+
+add_definitions(-DNANOCLR_REFLECTION=TRUE
                 -DNANOCLR_SYSTEM_COLLECTIONS=TRUE
                 -DSUPPORT_ANY_BASE_CONVERSION=FALSE
                 -D_LIB
