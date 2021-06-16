@@ -57,9 +57,10 @@ int main(int argc, char *argv[])
 #endif
     }
 
+    printf(".NET nanoFramework v%s %s", VERSION_STRING, OEMSYSTEMINFOSTRING);
+    printf("\nCopyright (c) 2021 .NET Foundation and Contributors\n\n");
+
 #if defined(DEBUG)
-    printf(".NET nanoFramework nanoCLR Nuttx v%s", VERSION_STRING);
-    printf("\nCopyright (c) 2021 .NET Foundation and Contributors\n");
     printf("\nCLR_RT_HeapBlock:  %d\r\n\n", sizeof(CLR_RT_HeapBlock));
     printf("\nCLR_RT_HeapBlock:  %d\r\n\n", sizeof(CLR_RT_HeapBlock_Raw));
 #endif

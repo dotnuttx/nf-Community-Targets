@@ -1,5 +1,5 @@
 # For build a static linked binary for pi Zero:
-# docker run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-arm32v6
+# docker run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-arm32v6 ./build.sh pi-zero
 
 ARG ARCH=arm32v6
 
