@@ -46,10 +46,10 @@ add_definitions(-DNANOCLR_REFLECTION=TRUE
                 -DNANOCLR_SYSTEM_COLLECTIONS=TRUE
                 -DSUPPORT_ANY_BASE_CONVERSION=FALSE
                 -D_LIB
-                -DVERSION_MAJOR=0
-                -DVERSION_MINOR=0
-                -DVERSION_BUILD=0
-                -DVERSION_REVISION=0
+                -DVERSION_MAJOR=2
+                -DVERSION_MINOR=6
+                -DVERSION_BUILD=4
+                -DVERSION_REVISION=5
                 -DVERSION_STRING="$ENV{NF_VERSION}"
                 -DOEMSYSTEMINFOSTRING="nanoCLR running on $ENV{NF_PLATFORM_TARGET_STRING}"
                 -DTARGETNAMESTRING="$ENV{NF_BOARD_TARGET}"
