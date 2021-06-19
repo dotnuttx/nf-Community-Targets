@@ -51,14 +51,14 @@ add_definitions(-DNANOCLR_REFLECTION=TRUE
                 -DVERSION_BUILD=0
                 -DVERSION_REVISION=0
                 -DVERSION_STRING="$ENV{NF_VERSION}"
-                -DOEMSYSTEMINFOSTRING="nanoCLR running on $ENV{NF_PLATFORM_TARGET} for $ENV{NF_BOARD_TARGET}"
+                -DOEMSYSTEMINFOSTRING="nanoCLR running on $ENV{NF_PLATFORM_TARGET_STRING}"
                 -DTARGETNAMESTRING="$ENV{NF_BOARD_TARGET}"
-                -DTARGETINFOSTRING="$ENV{NF_BOARD_TARGET}"
+                -DTARGETINFOSTRING="$ENV{NF_BOARD_TARGET_STRING}"
                 -DPLATFORMNAMESTRING="$ENV{NF_PLATFORM_TARGET}"
                 -DNANOCLR_LIGHT_MATH=TRUE
                 -DHAL_REDUCESIZE=TRUE
                 -DRUNTIME_MEMORY_PROFILE__extrasmall=TRUE
-                -DBOARD_PI_ZERO)
+                -D$ENV{NF_BOARD_CONFIG})
 
 file(GLOB STDAFX
         utils/stdafx.cpp)
