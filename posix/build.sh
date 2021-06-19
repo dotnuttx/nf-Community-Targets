@@ -20,9 +20,9 @@ function linux_build () {
 
     make -j12
     if [ "$1" == "debug" ]; then
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.debug
+        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').debug
     else
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET
+        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g')
     fi
 }
 
@@ -41,7 +41,7 @@ function nuttx_build () {
     make -C ../../../nuttx -j12
 
     if [ "$NF_BOARD_TARGET" == "pi-pico" ]; then
-        cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.uf2
+        cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
     fi
 }
 
