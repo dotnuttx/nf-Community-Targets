@@ -38,7 +38,11 @@ function nuttx_build () {
         raspberrypi-pico:dotnet
 
     # build
-    make -C ../../../nuttx -j12
+    if [ "$1" == "debug" ]; then
+        make V=1 -C ../../../nuttx -j12 > build.log 2>&1
+    else
+        make -C ../../../nuttx -j12
+    fi
 
     if [ "$NF_BOARD_TARGET" == "pi-pico" ]; then
         cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
