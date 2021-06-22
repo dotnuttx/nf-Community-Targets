@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # build version
-export NF_VERSION="2.6.4.5"
+export NF_VERSION="2.6.4.6"
+
+export NF_VERSION_MAJOR=2
+export NF_VERSION_MINOR=6
+export NF_VERSION_BUILD=4
+export NF_VERSION_REVISION=6
 
 function linux_build () {
     clear
@@ -63,7 +68,7 @@ else
         export NF_PLATFORM_TARGET="x86-64-Linux"
         export NF_PLATFORM_TARGET_STRING="x86-64 Linux"
         export NF_BOARD_TARGET="wsl"
-        export NF_BOARD_CONFIG="BOARD_PI_ZERO"
+        export NF_BOARD_CONFIG="BOARD_WSL"
         linux_build $2
     fi
     
