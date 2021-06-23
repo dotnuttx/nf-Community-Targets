@@ -77,6 +77,23 @@ else
         export NF_PLATFORM_TARGET_STRING="arm32v6 Linux (Raspberry Pi Zero)"
         export NF_BOARD_TARGET="pi-zero"
         export NF_BOARD_CONFIG="BOARD_PI_ZERO"
+
+        if [ "$2" == "podman-qemu" ]; then
+            echo "To run torizon/binfmt we need super cow powers:"
+            sudo podman run --rm -it --privileged torizon/binfmt
+
+            # build from container
+            podman \
+                run \
+                --rm \
+                -it \
+                -v ../../:/nf-interpreter \
+                dotnuttx/builder:linux-arm32v6 \
+                ./build.sh pi-zero
+
+            exit
+        fi
+
         linux_build $2
     fi
 
