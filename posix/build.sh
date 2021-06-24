@@ -40,7 +40,12 @@ function nuttx_build () {
     # config
     ../../../nuttx/tools/./configure.sh \
         -l \
-        raspberrypi-pico:dotnet
+        raspberrypi-pico:dotnetromfs
+
+    # generate init script
+    cd ../../../apps/nshlib/
+    ../../nuttx/tools/./mkromfsimg.sh ../../nuttx/
+    cd -
 
     # build
     if [ "$1" == "debug" ]; then
