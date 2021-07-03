@@ -1,7 +1,11 @@
 # For build a static linked binary for pi Zero:
-# docker run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-arm32v6 ./build.sh pi-zero
+# podman run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-arm32v6 ./build.sh pi-zero
 
-ARG ARCH=arm32v6
+# For build a static linked binary for riscv-64:
+# podman run --rm -it -v ../../:/nf-interpreter dotnuttx/builder:linux-riscv64 ./build.sh beagle-v
+
+#ARG ARCH=arm32v6
+ARG ARCH=riscv64
 
 FROM dotnuttx/binutils:linux-${ARCH}
 

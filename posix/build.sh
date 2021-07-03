@@ -63,9 +63,10 @@ if [ "$1" == "" ]; then
     echo "No target string specified!"
 
     # Target string table
-    echo "wsl     ::  x86-64 Linux"
-    echo "pi-zero ::  arm32v6 Linux (Raspberry Pi Zero)"
-    echo "pi-pico ::  rp2040 Nuttx (Raspberry Pi Pico)"
+    echo "wsl       ::  x86-64 Linux"
+    echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
+    echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
+    echo "beagle-v  ::  riscv64 Linux (Beagle V)"
 
     exit
 else
@@ -95,6 +96,31 @@ else
                 -v ../../:/nf-interpreter \
                 dotnuttx/builder:linux-arm32v6 \
                 ./build.sh pi-zero
+
+            exit
+        fi
+
+        linux_build $2
+    fi
+
+    if [ "$1" == "beagle-v" ]; then
+        export NF_PLATFORM_TARGET="riscv64-Linux"
+        export NF_PLATFORM_TARGET_STRING="riscv-64 Linux (Beagle-V)"
+        export NF_BOARD_TARGET="beagle-v"
+        export NF_BOARD_CONFIG="BOARD_BEAGLEV"
+
+        if [ "$2" == "podman-qemu" ]; then
+            echo "To run torizon/binfmt we need super cow powers:"
+            sudo podman run --rm -it --privileged torizon/binfmt
+
+            # build from container
+            podman \
+                run \
+                --rm \
+                -it \
+                -v ../../:/nf-interpreter \
+                dotnuttx/builder:linux-riscv64 \
+                ./build.sh beagle-v
 
             exit
         fi
