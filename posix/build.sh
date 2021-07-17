@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # build version
-export NF_VERSION="2.6.4.6"
+export NF_VERSION="2.6.4.7"
 
 export NF_VERSION_MAJOR=2
 export NF_VERSION_MINOR=6
 export NF_VERSION_BUILD=4
-export NF_VERSION_REVISION=6
+export NF_VERSION_REVISION=7
 
 function linux_build () {
     clear
@@ -57,6 +57,10 @@ function nuttx_build () {
     if [ "$NF_BOARD_TARGET" == "pi-pico" ]; then
         cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
     fi
+
+    if [ "$NF_BOARD_TARGET" == "esp32c3" ]; then
+        cp ../../../nuttx/nuttx.bin ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').bin
+    fi
 }
 
 if [ "$1" == "" ]; then
@@ -67,6 +71,7 @@ if [ "$1" == "" ]; then
     echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
     echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
     echo "beagle-v  ::  riscv64 Linux (Beagle V)"
+    echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
 
     exit
 else
@@ -133,6 +138,14 @@ else
         export NF_PLATFORM_TARGET_STRING="rp2040 Nuttx (Raspberry Pi Pico)"
         export NF_BOARD_TARGET="pi-pico"
         export NF_BOARD_CONFIG="BOARD_PI_PICO"
+        nuttx_build $2
+    fi
+
+    if [ "$1" == "esp32c3" ]; then
+        export NF_PLATFORM_TARGET="esp32c3-Nuttx"
+        export NF_PLATFORM_TARGET_STRING="esp32c3 Nuttx (ESP32 Risc-V)"
+        export NF_BOARD_TARGET="esp32c3"
+        export NF_BOARD_CONFIG="BOARD_ESP32_C3"
         nuttx_build $2
     fi
 fi
