@@ -40,7 +40,7 @@ function nuttx_build () {
     # config
     ../../../nuttx/tools/./configure.sh \
         -l \
-        raspberrypi-pico:dotnetromfs
+        $1:dotnetromfs
 
     # generate init script
     cd ../../../apps/nshlib/
@@ -48,7 +48,7 @@ function nuttx_build () {
     cd -
 
     # build
-    if [ "$1" == "debug" ]; then
+    if [ "$2" == "debug" ]; then
         make V=1 -C ../../../nuttx -j12 > build.log 2>&1
     else
         make -C ../../../nuttx -j12
@@ -138,7 +138,7 @@ else
         export NF_PLATFORM_TARGET_STRING="rp2040 Nuttx (Raspberry Pi Pico)"
         export NF_BOARD_TARGET="pi-pico"
         export NF_BOARD_CONFIG="BOARD_PI_PICO"
-        nuttx_build $2
+        nuttx_build "raspberrypi-pico" $2
     fi
 
     if [ "$1" == "esp32c3" ]; then
@@ -146,6 +146,6 @@ else
         export NF_PLATFORM_TARGET_STRING="esp32c3 Nuttx (ESP32 Risc-V)"
         export NF_BOARD_TARGET="esp32c3"
         export NF_BOARD_CONFIG="BOARD_ESP32_C3"
-        nuttx_build $2
+        nuttx_build "esp32c3-devkit" $2
     fi
 fi
