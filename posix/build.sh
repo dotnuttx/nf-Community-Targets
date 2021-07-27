@@ -89,12 +89,12 @@ else
         export NF_BOARD_TARGET="pi-zero"
         export NF_BOARD_CONFIG="BOARD_PI_ZERO"
 
-        if [ "$2" == "podman-qemu" ]; then
+        if [ "$2" == "container" ]; then
             echo "To run torizon/binfmt we need super cow powers:"
-            sudo podman run --rm -it --privileged torizon/binfmt
+            docker run --rm -it --privileged torizon/binfmt
 
             # build from container
-            podman \
+            docker \
                 run \
                 --rm \
                 -it \
@@ -114,12 +114,12 @@ else
         export NF_BOARD_TARGET="beagle-v"
         export NF_BOARD_CONFIG="BOARD_BEAGLEV"
 
-        if [ "$2" == "podman-qemu" ]; then
+        if [ "$2" == "container" ]; then
             echo "To run torizon/binfmt we need super cow powers:"
-            sudo podman run --rm -it --privileged torizon/binfmt
+            docker run --rm -it --privileged torizon/binfmt
 
             # build from container
-            podman \
+            docker \
                 run \
                 --rm \
                 -it \
