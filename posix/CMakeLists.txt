@@ -89,6 +89,7 @@ file(GLOB NANO_PAL
         target/PAL/Target_BlockStorage.cpp
         target/PAL/time_stubs.cpp
         target/PAL/Watchdog_stubs.cpp
+        target/PAL/CPU_Gpio_weak.cpp
         target/PAL/CPU_Gpio_Linux.cpp)
 
 file(GLOB NANO_CLR
