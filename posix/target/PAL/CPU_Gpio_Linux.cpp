@@ -1,7 +1,7 @@
 
 #include <CPU_Gpio.h>
 
-#if defined(__linux__) && defined(__gpio)
+#if defined(__linux__) && defined(NF_POSIX_GPIO)
 
 bool CPU_GPIO_Initialize()
 {
