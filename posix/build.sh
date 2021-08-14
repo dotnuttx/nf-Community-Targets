@@ -98,7 +98,7 @@ else
                 run \
                 --rm \
                 -it \
-                -v ../../:/nf-interpreter \
+                -v $(realpath ../../):/nf-interpreter \
                 dotnuttx/builder:linux-arm32v6 \
                 ./build.sh pi-zero
 
@@ -123,7 +123,7 @@ else
                 run \
                 --rm \
                 -it \
-                -v ../../:/nf-interpreter \
+                -v $(realpath ../../):/nf-interpreter \
                 dotnuttx/builder:linux-riscv64 \
                 ./build.sh beagle-v
 
