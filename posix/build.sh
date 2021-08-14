@@ -91,7 +91,7 @@ else
 
         if [ "$2" == "container" ]; then
             echo "To run torizon/binfmt we need super cow powers:"
-            docker run --rm -it --privileged torizon/binfmt
+            sudo docker run --rm -it --privileged torizon/binfmt
 
             # build from container
             docker \
@@ -116,7 +116,7 @@ else
 
         if [ "$2" == "container" ]; then
             echo "To run torizon/binfmt we need super cow powers:"
-            docker run --rm -it --privileged torizon/binfmt
+            sudo docker run --rm -it --privileged torizon/binfmt
 
             # build from container
             docker \
