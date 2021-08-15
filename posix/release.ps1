@@ -27,8 +27,8 @@ $wslDebugRet = $LASTEXITCODE
 ./build.sh pi-zero container
 $piZeroRet = $LASTEXITCODE
 
-./build.sh beagle-v container
-$beagleVRet = $LASTEXITCODE
+./build.sh jh7100 container
+$jh7100Ret = $LASTEXITCODE
 
 ./build.sh pi-pico release
 $piPicoRet = $LASTEXITCODE
@@ -45,6 +45,6 @@ Write-Host "Build Report ::" `
 outputReport $wslRet        " WSL 2              -   Linux x86_64    -   Release "
 outputReport $wslDebugRet   " WSL 2              -   Linux x86_64    -   Debug   "
 outputReport $piZeroRet     " Raspberry Pi Zero  -   arm32v6         -   Release "
-outputReport $beagleVRet    " Beagle V           -   rcv64           -   Release "
+outputReport $jh7100Ret     " StarFive JH7100    -   rcv64           -   Release "
 outputReport $piPicoRet     " Raspberry Pi Pico  -   arm M0+         -   Release "
 outputReport $esp32C3Ret    " ESP32 C3           -   rcv32           -   Release "

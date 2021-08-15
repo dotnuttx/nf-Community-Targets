@@ -70,7 +70,7 @@ if [ "$1" == "" ]; then
     echo "wsl       ::  x86-64 Linux"
     echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
     echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
-    echo "beagle-v  ::  riscv64 Linux (Beagle V)"
+    echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
     echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
 
     exit
@@ -108,11 +108,11 @@ else
         linux_build $2
     fi
 
-    if [ "$1" == "beagle-v" ]; then
+    if [ "$1" == "jh7100" ]; then
         export NF_PLATFORM_TARGET="riscv64-Linux"
-        export NF_PLATFORM_TARGET_STRING="riscv-64 Linux (Beagle-V)"
-        export NF_BOARD_TARGET="beagle-v"
-        export NF_BOARD_CONFIG="BOARD_BEAGLEV"
+        export NF_PLATFORM_TARGET_STRING="riscv-64 Linux (StarFive JH7100)"
+        export NF_BOARD_TARGET="jh7100"
+        export NF_BOARD_CONFIG="BOARD_JH7100"
 
         if [ "$2" == "container" ]; then
             echo "To run torizon/binfmt we need super cow powers:"
@@ -125,7 +125,7 @@ else
                 -it \
                 -v $(realpath ../../):/nf-interpreter \
                 dotnuttx/builder:linux-riscv64 \
-                ./build.sh beagle-v
+                ./build.sh jh7100
 
             exit
         fi

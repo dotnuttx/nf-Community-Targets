@@ -28,14 +28,14 @@
 
 #endif // BOARD_PI_ZERO
 
-#if defined(BOARD_BEAGLEV)
+#if defined(BOARD_JH7100)
 
 #define NF_POSIX_GPIO
 // TODO: 1 bank?
 #define GPIO_MAX_PIN        48
 #define TOTAL_GPIO_PORTS    48
 
-#endif // BOARD_BEAGLEV
+#endif // BOARD_JH7100
 
 
 #if defined(BOARD_PI_PICO)
