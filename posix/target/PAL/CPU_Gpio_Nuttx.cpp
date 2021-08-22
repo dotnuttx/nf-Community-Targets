@@ -34,6 +34,7 @@ static int openGpioCharDev(int chip)
 static bool setGpioCharDevDir(int fd, GpioPinDriveMode dir, int pin)
 {
     int ret;
+    struct gpio_lib_args gpio_lib;
     gpio_pintype_e nuttxDir;
 
     switch (dir)
@@ -50,7 +51,10 @@ static bool setGpioCharDevDir(int fd, GpioPinDriveMode dir, int pin)
         break;
     }
 
-    ret = ioctl(fd, GPIOC_SETDIR, (unsigned long)nuttxDir, pin);
+    gpio_lib.arg = (unsigned long)nuttxDir;
+    gpio_lib.pin = pin;
+
+    ret = ioctl(fd, GPIOC_SETDIR, (unsigned long)((uintptr_t)&gpio_lib));
     if (ret < 0)
     {
 #if defined(DEBUG)
@@ -68,10 +72,14 @@ static bool setGpioCharDevDir(int fd, GpioPinDriveMode dir, int pin)
 
 static bool getGpioCharDevInValue(int fd, int pin)
 {
+    struct gpio_lib_args gpio_lib;
     bool invalue;
     int ret;
 
-    ret = ioctl(fd, GPIOC_READ, (unsigned long)((uintptr_t)&invalue), pin);
+    gpio_lib.arg = (unsigned long)((uintptr_t)&invalue);
+    gpio_lib.pin = pin;
+    
+    ret = ioctl(fd, GPIOC_READ, (unsigned long)((uintptr_t)&gpio_lib));
 
 #if defined(DEBUG)
     if (ret < 0)
@@ -88,9 +96,13 @@ static bool getGpioCharDevInValue(int fd, int pin)
 
 static void setGpioCharDevOutValue(int fd, int pin, bool outvalue)
 {
+    struct gpio_lib_args gpio_lib;
     int ret;
 
-    ret = ioctl(fd, GPIOC_WRITE, (unsigned long)outvalue, pin);
+    gpio_lib.arg = (unsigned long)outvalue;
+    gpio_lib.pin = pin;
+
+    ret = ioctl(fd, GPIOC_WRITE, (unsigned long)((uintptr_t)&gpio_lib));
 
 #if defined(DEBUG)
     if (ret < 0)
