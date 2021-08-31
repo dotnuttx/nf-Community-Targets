@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # build version
-export NF_VERSION="2.6.4.7"
+export NF_VERSION="2.6.4.8"
 
 export NF_VERSION_MAJOR=2
 export NF_VERSION_MINOR=6
@@ -58,7 +58,7 @@ function nuttx_build () {
         cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
     fi
 
-    if [ "$NF_BOARD_TARGET" == "esp32c3" ]; then
+    if [ "$NF_BOARD_TARGET" == "esp32c3" ] || [ "$NF_BOARD_TARGET" == "portenta-h7" ]; then
         cp ../../../nuttx/nuttx.bin ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').bin
     fi
 }
@@ -72,6 +72,7 @@ if [ "$1" == "" ]; then
     echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
     echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
     echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
+    echo "portenta  ::  portenta-h7 Nuttx (Arduino Portenta H7)"
 
     exit
 else
@@ -147,5 +148,13 @@ else
         export NF_BOARD_TARGET="esp32c3"
         export NF_BOARD_CONFIG="BOARD_ESP32_C3"
         nuttx_build "esp32c3-devkit" $2
+    fi
+
+    if [ "$1" == "portenta" ]; then
+        export NF_PLATFORM_TARGET="portenta-Nuttx"
+        export NF_PLATFORM_TARGET_STRING="portenta-h7 Nuttx (Arduino Portenta H7)"
+        export NF_BOARD_TARGET="portenta-h7"
+        export NF_BOARD_CONFIG="BOARD_ARDUINO_PORTENTA_H7"
+        nuttx_build "portenta-h7" $2
     fi
 fi
