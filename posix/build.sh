@@ -67,46 +67,21 @@ if [ "$1" == "" ]; then
     echo "No target string specified!"
 
     # Target string table
-    echo "wsl       ::  x86-64 Linux"
-    echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
-    echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
-    echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
     echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
+    echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
+    echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
+    echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
     echo "portenta  ::  portenta-h7 Nuttx (Arduino Portenta H7)"
+    echo "wsl       ::  x86-64 Linux"
 
     exit
 else
-    if [ "$1" == "wsl" ]; then
-        export NF_PLATFORM_TARGET="x86-64-Linux"
-        export NF_PLATFORM_TARGET_STRING="x86-64 Linux"
-        export NF_BOARD_TARGET="wsl"
-        export NF_BOARD_CONFIG="BOARD_WSL"
-        linux_build $2
-    fi
-    
-    if [ "$1" == "pi-zero" ]; then
-        export NF_PLATFORM_TARGET="armel-Linux"
-        export NF_PLATFORM_TARGET_STRING="arm32v6 Linux (Raspberry Pi Zero)"
-        export NF_BOARD_TARGET="pi-zero"
-        export NF_BOARD_CONFIG="BOARD_PI_ZERO"
-
-        if [ "$2" == "container" ]; then
-            echo "To run torizon/binfmt we need super cow powers:"
-            sudo docker run --rm -it --privileged torizon/binfmt
-
-            # build from container
-            docker \
-                run \
-                --rm \
-                -it \
-                -v $(realpath ../../):/nf-interpreter \
-                dotnuttx/builder:linux-arm32v6 \
-                ./build.sh pi-zero
-
-            exit
-        fi
-
-        linux_build $2
+    if [ "$1" == "esp32c3" ]; then
+        export NF_PLATFORM_TARGET="esp32c3-Nuttx"
+        export NF_PLATFORM_TARGET_STRING="esp32c3 Nuttx (ESP32 Risc-V)"
+        export NF_BOARD_TARGET="esp32c3"
+        export NF_BOARD_CONFIG="BOARD_ESP32_C3"
+        nuttx_build "esp32c3-devkit" $2
     fi
 
     if [ "$1" == "jh7100" ]; then
@@ -142,12 +117,29 @@ else
         nuttx_build "raspberrypi-pico" $2
     fi
 
-    if [ "$1" == "esp32c3" ]; then
-        export NF_PLATFORM_TARGET="esp32c3-Nuttx"
-        export NF_PLATFORM_TARGET_STRING="esp32c3 Nuttx (ESP32 Risc-V)"
-        export NF_BOARD_TARGET="esp32c3"
-        export NF_BOARD_CONFIG="BOARD_ESP32_C3"
-        nuttx_build "esp32c3-devkit" $2
+    if [ "$1" == "pi-zero" ]; then
+        export NF_PLATFORM_TARGET="armel-Linux"
+        export NF_PLATFORM_TARGET_STRING="arm32v6 Linux (Raspberry Pi Zero)"
+        export NF_BOARD_TARGET="pi-zero"
+        export NF_BOARD_CONFIG="BOARD_PI_ZERO"
+
+        if [ "$2" == "container" ]; then
+            echo "To run torizon/binfmt we need super cow powers:"
+            sudo docker run --rm -it --privileged torizon/binfmt
+
+            # build from container
+            docker \
+                run \
+                --rm \
+                -it \
+                -v $(realpath ../../):/nf-interpreter \
+                dotnuttx/builder:linux-arm32v6 \
+                ./build.sh pi-zero
+
+            exit
+        fi
+
+        linux_build $2
     fi
 
     if [ "$1" == "portenta" ]; then
@@ -156,5 +148,13 @@ else
         export NF_BOARD_TARGET="portenta-h7"
         export NF_BOARD_CONFIG="BOARD_ARDUINO_PORTENTA_H7"
         nuttx_build "portenta-h7" $2
+    fi
+
+    if [ "$1" == "wsl" ]; then
+        export NF_PLATFORM_TARGET="x86-64-Linux"
+        export NF_PLATFORM_TARGET_STRING="x86-64 Linux"
+        export NF_BOARD_TARGET="wsl"
+        export NF_BOARD_CONFIG="BOARD_WSL"
+        linux_build $2
     fi
 fi
