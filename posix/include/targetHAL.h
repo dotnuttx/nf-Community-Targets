@@ -7,12 +7,15 @@
 #define _TARGET_HAL_H_
 
 #include "basetsd.h"
+#include <unistd.h>
 
 #if defined(__linux__) || defined(__nuttx__)
 #define __cdecl __attribute__((__cdecl__))
 #endif
 
 // #include <nanoHAL_Power.h>
+
+#define PLATFORM_DELAY(milliSecs) usleep(milliSecs * 1000);
 
 // set min possible number of sockets
 #define PLATFORM_DEPENDENT__SOCKETS_MAX_COUNT 1
