@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # build version
-export NF_VERSION="2.6.4.8"
+export NF_VERSION="2.7.0.2"
 
 export NF_VERSION_MAJOR=2
-export NF_VERSION_MINOR=6
-export NF_VERSION_BUILD=4
-export NF_VERSION_REVISION=7
+export NF_VERSION_MINOR=7
+export NF_VERSION_BUILD=0
+export NF_VERSION_REVISION=2
 
 function linux_build () {
     clear
