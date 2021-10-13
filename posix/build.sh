@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # build version
-export NF_VERSION="2.6.4.8"
+export NF_VERSION="2.7.0.2"
 
 export NF_VERSION_MAJOR=2
 export NF_VERSION_MINOR=6
