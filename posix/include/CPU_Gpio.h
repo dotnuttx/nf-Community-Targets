@@ -16,6 +16,7 @@
 // multi bank, each have 36
 #define GPIO_MAX_PIN        36
 #define TOTAL_GPIO_PORTS    36
+#define GPIO_DEFAULT_BANK   0
 
 #endif // BOARD_WSL
 
@@ -25,6 +26,7 @@
 // 1 bank
 #define GPIO_MAX_PIN        27
 #define TOTAL_GPIO_PORTS    27
+#define GPIO_DEFAULT_BANK   0
 
 #endif // BOARD_PI_ZERO
 
@@ -34,6 +36,7 @@
 // TODO: 1 bank?
 #define GPIO_MAX_PIN        48
 #define TOTAL_GPIO_PORTS    48
+#define GPIO_DEFAULT_BANK   0
 
 #endif // BOARD_JH7100
 

@@ -6,7 +6,7 @@
 bool CPU_GPIO_Initialize()
 {
     // for now supporting only bank 0
-    _chip = gpiod_chip_open_by_number(0);
+    _chip = gpiod_chip_open_by_number(GPIO_DEFAULT_BANK);
 
     if (_chip == NULL)
         return false;
