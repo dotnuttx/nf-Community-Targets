@@ -25,9 +25,9 @@ function linux_build () {
 
     make -j12
     if [ "$1" == "debug" ]; then
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').debug
+        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g').debug
     else
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g')
+        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g')
     fi
 }
 
@@ -69,6 +69,7 @@ if [ "$1" == "" ]; then
     # Target string table
     echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
     echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
+    echo "nezha     ::  riscv64 Linux (Allwinner D1)"
     echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
     echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
     echo "portenta  ::  portenta-h7 Nuttx (Arduino Portenta H7)"
@@ -102,6 +103,31 @@ else
                 -v $(realpath ../../):/nf-interpreter \
                 dotnuttx/builder:linux-riscv64 \
                 ./build.sh jh7100
+
+            exit
+        fi
+
+        linux_build $2
+    fi
+
+    if [ "$1" == "nezha" ]; then
+        export NF_PLATFORM_TARGET="riscv64-Linux"
+        export NF_PLATFORM_TARGET_STRING="riscv-64 Linux (Allwinner D1)"
+        export NF_BOARD_TARGET="nezha"
+        export NF_BOARD_CONFIG="BOARD_NEZHA"
+
+        if [ "$2" == "container" ]; then
+            echo "To run torizon/binfmt we need super cow powers:"
+            sudo docker run --rm -it --privileged torizon/binfmt
+
+            # build from container
+            docker \
+                run \
+                --rm \
+                -it \
+                -v $(realpath ../../):/nf-interpreter \
+                dotnuttx/builder:linux-riscv64 \
+                ./build.sh nezha
 
             exit
         fi

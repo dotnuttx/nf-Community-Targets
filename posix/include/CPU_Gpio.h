@@ -40,6 +40,16 @@
 
 #endif // BOARD_JH7100
 
+#if defined(BOARD_NEZHA)
+
+#define NF_POSIX_GPIO
+// TODO: 1 bank?
+// for now suports only the io expand
+#define GPIO_MAX_PIN        8
+#define TOTAL_GPIO_PORTS    8
+#define GPIO_DEFAULT_BANK   1
+
+#endif // BOARD_NEZHA
 
 #if defined(BOARD_PI_PICO)
 

@@ -36,15 +36,19 @@ $piPicoRet = $LASTEXITCODE
 ./build.sh esp32c3 release
 $esp32C3Ret = $LASTEXITCODE
 
+./build.sh nezha container
+$nezhaRet = $LASTEXITCODE
+
 # reports
 Write-Host -NoNewline " ⚠️ "
 Write-Host "Build Report ::" `
     -ForegroundColor Black `
     -BackgroundColor DarkYellow
 
-outputReport $wslRet        " WSL 2              -   Linux x86_64    -   Release "
-outputReport $wslDebugRet   " WSL 2              -   Linux x86_64    -   Debug   "
-outputReport $piZeroRet     " Raspberry Pi Zero  -   arm32v6         -   Release "
-outputReport $jh7100Ret     " StarFive JH7100    -   rcv64           -   Release "
-outputReport $piPicoRet     " Raspberry Pi Pico  -   arm M0+         -   Release "
-outputReport $esp32C3Ret    " ESP32 C3           -   rcv32           -   Release "
+outputReport $wslRet        " WSL 2                         -   Linux x86_64    -   Release "
+outputReport $wslDebugRet   " WSL 2                         -   Linux x86_64    -   Debug   "
+outputReport $piZeroRet     " Raspberry Pi Zero             -   arm32v6         -   Release "
+outputReport $jh7100Ret     " StarFive JH7100               -   rcv64           -   Release "
+outputReport $piPicoRet     " Raspberry Pi Pico             -   arm M0+         -   Release "
+outputReport $esp32C3Ret    " ESP32 C3                      -   rcv32           -   Release "
+outputReport $nezhaRet      " Alwinner D1 Nezha Dev Board   -   rcv64           -   Release "
