@@ -58,7 +58,7 @@ function nuttx_build () {
         cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
     fi
 
-    if [ "$NF_BOARD_TARGET" == "esp32c3" ] || [ "$NF_BOARD_TARGET" == "portenta-h7" ]; then
+    if [ "$NF_BOARD_TARGET" == "esp32c3" ] || [ "$NF_BOARD_TARGET" == "portenta-h7" ] || [ "$NF_BOARD_TARGET" == "maix-bit" ]; then
         cp ../../../nuttx/nuttx.bin ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').bin
     fi
 }
@@ -69,6 +69,7 @@ if [ "$1" == "" ]; then
     # Target string table
     echo "esp32c3   ::  esp32c3 Nuttx (ESP32-C3 Risc-V)"
     echo "jh7100    ::  riscv64 Linux (StarFive JH7100)"
+    echo "maix-bit  ::  riscv64 Nuttx (Kendryte K210)"
     echo "nezha     ::  riscv64 Linux (Allwinner D1)"
     echo "pi-pico   ::  rp2040 Nuttx (Raspberry Pi Pico)"
     echo "pi-zero   ::  arm32v6 Linux (Raspberry Pi Zero)"
@@ -108,6 +109,14 @@ else
         fi
 
         linux_build $2
+    fi
+
+    if [ "$1" == "maix-bit" ]; then
+        export NF_PLATFORM_TARGET="maixbit-Nuttx"
+        export NF_PLATFORM_TARGET_STRING="riscv64 Nuttx (Kendryte K210)"
+        export NF_BOARD_TARGET="maix-bit"
+        export NF_BOARD_CONFIG="BOARD_MAIX_BIT"
+        nuttx_build "maix-bit" $2
     fi
 
     if [ "$1" == "nezha" ]; then
