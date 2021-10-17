@@ -24,17 +24,17 @@ $wslRet = $LASTEXITCODE
 ./build.sh wsl debug
 $wslDebugRet = $LASTEXITCODE
 
-./build.sh pi-zero container
-$piZeroRet = $LASTEXITCODE
-
-./build.sh jh7100 container
-$jh7100Ret = $LASTEXITCODE
-
 ./build.sh pi-pico release
 $piPicoRet = $LASTEXITCODE
 
 ./build.sh esp32c3 release
 $esp32C3Ret = $LASTEXITCODE
+
+./build.sh pi-zero container
+$piZeroRet = $LASTEXITCODE
+
+./build.sh jh7100 container
+$jh7100Ret = $LASTEXITCODE
 
 ./build.sh nezha container
 $nezhaRet = $LASTEXITCODE
