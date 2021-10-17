@@ -67,6 +67,15 @@
 
 #endif // BOARD_ESP32_C3
 
+#if defined(BOARD_MAIX_BIT)
+
+#define NF_POSIX_GPIO
+// the first 9 IOs are used by the system
+#define GPIO_MAX_PIN        48
+#define TOTAL_GPIO_PORTS    48
+
+#endif // BOARD_MAIX_BIT
+
 // common linux
 #if defined(__linux__) && defined(NF_POSIX_GPIO)
 
