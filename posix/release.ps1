@@ -30,6 +30,9 @@ $piPicoRet = $LASTEXITCODE
 ./build.sh esp32c3 release
 $esp32C3Ret = $LASTEXITCODE
 
+./build.sh maix-bit release
+$maixBit = $LASTEXITCODE
+
 ./build.sh pi-zero container
 $piZeroRet = $LASTEXITCODE
 
@@ -52,3 +55,4 @@ outputReport $jh7100Ret     " StarFive JH7100               -   rcv64           
 outputReport $piPicoRet     " Raspberry Pi Pico             -   arm M0+         -   Release "
 outputReport $esp32C3Ret    " ESP32 C3                      -   rcv32           -   Release "
 outputReport $nezhaRet      " Alwinner D1 Nezha Dev Board   -   rcv64           -   Release "
+outputReport $maixBit       " Sipeed Maix Dock k210         -   rcv64           -   Release "
