@@ -23,9 +23,9 @@ private:
   class Timer  
   {
   public:
-    Timer(long usec, void (*callback)(void)) :
+    Timer(long usec, void (*callback_)(void)) :
       duration(usec),
-      callback(callback),
+      callback(callback_),
       start(0)
     {      
     }

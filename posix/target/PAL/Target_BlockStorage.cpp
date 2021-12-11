@@ -229,7 +229,7 @@ bool BlockStorageStream_Seek(BlockStorageStream *stream, unsigned int offset, Se
 
     seekIndex += offset;
 
-    while (seekIndex >= (int32_t)stream->Length)
+    while (seekIndex >= stream->Length)
     {
         // out of region address space
         return false;
@@ -293,7 +293,7 @@ bool BlockStorageStream_Read(BlockStorageStream *stream, unsigned char **buffer,
     return true;
 }
 
-unsigned int BlockStorageStream_CurrentAddress(BlockStorageStream *stream)
+uintptr_t BlockStorageStream_CurrentAddress(BlockStorageStream *stream)
 {
     return stream->BaseAddress + stream->CurrentIndex;
 }

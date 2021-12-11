@@ -47,7 +47,7 @@ void HAL_Windows_Debug_Print(char *szText)
     std::string str = (std::string)szText;
 
     // clear trailing LR & CR
-    int pos;
+    std::size_t pos;
     if ((pos = str.find_last_of('\n')) != std::string::npos)
     {
         str.erase(pos);
@@ -162,7 +162,7 @@ static ON_SOFT_REBOOT_HANDLER s_rebootHandlers[5] = {NULL, NULL, NULL, NULL, NUL
 void __cdecl HAL_AddSoftRebootHandler(ON_SOFT_REBOOT_HANDLER handler)
 {
     auto arraySize = sizeof(s_rebootHandlers) / sizeof(ON_SOFT_REBOOT_HANDLER);
-    for (int i = 0; i < arraySize; i++)
+    for (std::size_t i = 0; i < arraySize; i++)
     {
         if (s_rebootHandlers[i] == NULL)
         {
@@ -188,7 +188,7 @@ void __cdecl nanoHAL_Initialize(void)
 
 void __cdecl nanoHAL_Uninitialize(void)
 {
-    int i;
+    std::size_t i;
 
     // UNDONE: FIXME: CPU_GPIO_Uninitialize();
     auto arraySize = sizeof(s_rebootHandlers) / sizeof(ON_SOFT_REBOOT_HANDLER);
@@ -256,7 +256,7 @@ void CPU_ChangePowerLevel(POWER_LEVEL level)
 
 void CPU_Hibernate()
 {
-    int64_t start = ::HAL_Time_CurrentTime();
+    // int64_t start = ::HAL_Time_CurrentTime();
 
     while (true)
     {
@@ -313,9 +313,9 @@ void SecurityKey_Print()
 
 void HAL_Windows_FastSleep(signed __int64 ticks)
 {
-    LARGE_INTEGER frequency;
-    LARGE_INTEGER countStart;
-    LARGE_INTEGER countEnd;
+    //LARGE_INTEGER frequency;
+    //LARGE_INTEGER countStart;
+    //LARGE_INTEGER countEnd;
 
     // TODO: port to linux
 }

@@ -188,9 +188,9 @@ struct Settings : CLR_RT_ParseOptions
 
         BlockStorageDevice *device;
         ByteAddress datByteAddress;
-        unsigned int datSize = ROUNDTOMULTIPLE((unsigned int)(*end) - (unsigned int)(*start), CLR_UINT32);
+        unsigned int datSize = ROUNDTOMULTIPLE((uintptr_t)(*end) - (uintptr_t)(*start), CLR_UINT32);
 
-        if (BlockStorageList_FindDeviceForPhysicalAddress(&device, (unsigned int)(*start), &datByteAddress) &&
+        if (BlockStorageList_FindDeviceForPhysicalAddress(&device, (uintptr_t)(*start), &datByteAddress) &&
             device != NULL)
         {
             const DeviceBlockInfo *deviceInfo = BlockStorageDevice_GetDeviceInfo(device);
@@ -206,7 +206,7 @@ struct Settings : CLR_RT_ParseOptions
                     NANOCLR_SET_AND_LEAVE(CLR_E_NOT_SUPPORTED);
                 }
                 *start = (char *)datAssembliesBuffer;
-                *end = (char *)((unsigned int)datAssembliesBuffer + (unsigned int)datSize);
+                *end = (char *)((uintptr_t)datAssembliesBuffer + (unsigned int)datSize);
             }
         }
 
@@ -224,10 +224,10 @@ struct Settings : CLR_RT_ParseOptions
 
         NANOCLR_CHECK_HRESULT(CheckKnownAssembliesForNonXIP(&assStart, &assEnd));
 #if !defined(BUILD_RTM)
-        CLR_Debug::Printf(" Loading start at %x, end %x\r\n", (unsigned int)assStart, (unsigned int)assEnd);
+        CLR_Debug::Printf(" Loading start at %x, end %x\r\n", (uintptr_t)assStart, (uintptr_t)assEnd);
 #endif
 
-        g_buildCRC = SUPPORT_ComputeCRC(assStart, (unsigned int)assEnd - (unsigned int)assStart, 0);
+        g_buildCRC = SUPPORT_ComputeCRC(assStart, (uintptr_t)assEnd - (uintptr_t)assStart, 0);
 
         header = (const CLR_RECORD_ASSEMBLY *)assStart;
 
@@ -447,7 +447,7 @@ struct Settings : CLR_RT_ParseOptions
         if (header->GoodAssembly() == false)
         {
             printf("Invalid assembly format for '%s': ", src);
-            for (int i = 0; i < sizeof(header->marker); i++)
+            for (long unsigned int i = 0; i < sizeof(header->marker); i++)
             {
                 printf("%02x", header->marker[i]);
             }

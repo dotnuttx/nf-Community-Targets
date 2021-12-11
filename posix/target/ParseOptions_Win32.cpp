@@ -286,13 +286,11 @@ void CLR_RT_ParseOptions::Usage()
 {
     CommandListIter it;
     ParameterListIter it2;
-    size_t maxCmdLen = 0;
 
     for (it = m_commands.begin(); it != m_commands.end(); it++)
     {
         Command *cmd = *it;
         std::string option = cmd->m_szName;
-        size_t cmdLen = strlen(cmd->m_szName);
         size_t maxLen = 0;
 
         printf("    %s\n", cmd->m_szDescription);

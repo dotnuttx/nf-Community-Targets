@@ -38,7 +38,7 @@ extern "C"
 
 int main(int argc, char *argv[])
 {
-    int i = 0;
+    std::size_t i = 0;
     DIR *d;
     struct dirent *dir;
     std::vector<std::string> args;
@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
     printf("\nCopyright (c) 2021 .NET Foundation and Contributors\n\n");
 
 #if defined(DEBUG)
-    printf("\nCLR_RT_HeapBlock:  %d\r\n\n", sizeof(CLR_RT_HeapBlock));
-    printf("\nCLR_RT_HeapBlock:  %d\r\n\n", sizeof(CLR_RT_HeapBlock_Raw));
+    printf("\nCLR_RT_HeapBlock:  %ld\r\n\n", sizeof(CLR_RT_HeapBlock));
+    printf("\nCLR_RT_HeapBlock:  %ld\r\n\n", sizeof(CLR_RT_HeapBlock_Raw));
 #endif
 
     // prepare -load
