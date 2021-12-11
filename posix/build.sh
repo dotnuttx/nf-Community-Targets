@@ -14,6 +14,7 @@ function linux_build () {
     # cleanup the build folder
     rm -rf build
     mkdir build
+    mkdir artifacts
     cd build
 
     # build it
@@ -23,15 +24,16 @@ function linux_build () {
         cmake -D CMAKE_BUILD_TYPE=Release ..
     fi
 
-    make -j12
+    make -j16
     if [ "$1" == "debug" ]; then
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g').debug
+        cp dotnet-nf ../artifacts/dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g').debug
     else
-        cp dotnet-nf ../dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g')
+        cp dotnet-nf ../artifacts/dotnet-nf.$NF_PLATFORM_TARGET.$NF_BOARD_TARGET.$(echo $NF_VERSION | sed 's/\.//g')
     fi
 }
 
 function nuttx_build () {
+    mkdir artifacts
     clear
 
     # cleanup the build folder
@@ -55,11 +57,11 @@ function nuttx_build () {
     fi
 
     if [ "$NF_BOARD_TARGET" == "pi-pico" ]; then
-        cp ../../../nuttx/nuttx.uf2 ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
+        cp ../../../nuttx/nuttx.uf2 ./artifacts/dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').uf2
     fi
 
     if [ "$NF_BOARD_TARGET" == "esp32c3" ] || [ "$NF_BOARD_TARGET" == "portenta-h7" ] || [ "$NF_BOARD_TARGET" == "maix-bit" ]; then
-        cp ../../../nuttx/nuttx.bin ./dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').bin
+        cp ../../../nuttx/nuttx.bin ./artifacts/dotnet-nf.$NF_PLATFORM_TARGET.$(echo $NF_VERSION | sed 's/\.//g').bin
     fi
 }
 
