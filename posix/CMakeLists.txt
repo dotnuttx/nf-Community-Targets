@@ -9,9 +9,9 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_EXTENSIONS OFF CACHE INTERNAL "C compiler extensions OFF")
 set(CMAKE_CXX_EXTENSIONS OFF CACHE INTERNAL "C++ compiler extensions OFF")
 # for debug
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++14 -O0 -g -rdynamic -Wno-attributes -Wno-narrowing -fpermissive -pthread -fPIC")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++17 -O0 -g -rdynamic -Wno-attributes -Wno-narrowing -pthread -faligned-new -fno-exceptions -fcheck-new -fno-rtti -fsanitize=alignment")
 # for minimun size
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -std=c++14 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -fpermissive -pthread")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -std=c++17 -Os -fdata-sections -ffunction-sections -Wno-attributes -Wno-narrowing -faligned-new -fno-exceptions -fcheck-new -fno-rtti -pthread")
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -Wl,-Map=map.map")
 
 #### includes
