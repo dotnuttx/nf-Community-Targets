@@ -51,6 +51,8 @@
 
 #endif // BOARD_NEZHA
 
+// NUTTX
+#if defined(CONFIG_DEV_GPIO)
 #if defined(BOARD_PI_PICO)
 
 #define NF_POSIX_GPIO
@@ -75,6 +77,8 @@
 #define TOTAL_GPIO_PORTS    48
 
 #endif // BOARD_MAIX_BIT
+
+#endif // CONFIG_DEV_GPIO
 
 // common linux
 #if defined(__linux__) && defined(NF_POSIX_GPIO)
