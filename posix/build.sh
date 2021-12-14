@@ -1,20 +1,22 @@
 #!/bin/bash
 
+set -e
+
 # build version
-export NF_VERSION="2.7.0.2"
+export NF_VERSION="2.7.0.3"
 
 export NF_VERSION_MAJOR=2
 export NF_VERSION_MINOR=7
 export NF_VERSION_BUILD=0
-export NF_VERSION_REVISION=2
+export NF_VERSION_REVISION=3
 
 function linux_build () {
     clear
 
     # cleanup the build folder
     rm -rf build
-    mkdir build
-    mkdir artifacts
+    mkdir -p build
+    mkdir -p artifacts
     cd build
 
     # build it
@@ -33,7 +35,7 @@ function linux_build () {
 }
 
 function nuttx_build () {
-    mkdir artifacts
+    mkdir -p artifacts
     clear
 
     # cleanup the build folder
@@ -86,6 +88,7 @@ else
         export NF_BOARD_TARGET="esp32c3"
         export NF_BOARD_CONFIG="BOARD_ESP32_C3"
         nuttx_build "esp32c3-devkit" $2
+        exit
     fi
 
     if [ "$1" == "jh7100" ]; then
@@ -111,6 +114,7 @@ else
         fi
 
         linux_build $2
+        exit
     fi
 
     if [ "$1" == "maix-bit" ]; then
@@ -119,6 +123,7 @@ else
         export NF_BOARD_TARGET="maix-bit"
         export NF_BOARD_CONFIG="BOARD_MAIX_BIT"
         nuttx_build "maix-bit" $2
+        exit
     fi
 
     if [ "$1" == "nezha" ]; then
@@ -144,6 +149,7 @@ else
         fi
 
         linux_build $2
+        exit
     fi
 
     if [ "$1" == "pi-pico" ]; then
@@ -152,6 +158,7 @@ else
         export NF_BOARD_TARGET="pi-pico"
         export NF_BOARD_CONFIG="BOARD_PI_PICO"
         nuttx_build "raspberrypi-pico" $2
+        exit
     fi
 
     if [ "$1" == "pi-zero" ]; then
@@ -177,6 +184,7 @@ else
         fi
 
         linux_build $2
+        exit
     fi
 
     if [ "$1" == "portenta" ]; then
@@ -185,6 +193,7 @@ else
         export NF_BOARD_TARGET="portenta-h7"
         export NF_BOARD_CONFIG="BOARD_ARDUINO_PORTENTA_H7"
         nuttx_build "portenta-h7" $2
+        exit
     fi
 
     if [ "$1" == "wsl" ]; then
@@ -193,5 +202,6 @@ else
         export NF_BOARD_TARGET="wsl"
         export NF_BOARD_CONFIG="BOARD_WSL"
         linux_build $2
+        exit
     fi
 fi

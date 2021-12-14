@@ -18,6 +18,10 @@ function outputReport {
     }
 }
 
+# clean
+sudo rm -rf ./build
+sudo rm -rf ./artifacts
+
 ./build.sh wsl release
 $wslRet = $LASTEXITCODE
 
